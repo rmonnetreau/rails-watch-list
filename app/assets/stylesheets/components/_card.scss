@@ -1,0 +1,104 @@
+.cards-container {
+  display: grid;
+  gap: $spacer * 2;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  margin-bottom: $spacer * 2;
+}
+
+// Movie Cards
+.movie-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .card-image-container {
+    height: 200px;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  &:hover .card-image-container img {
+    transform: scale(1.05);
+  }
+}
+
+.movie-detail-card {
+  .card-image-container {
+    &.movie-detail-image {
+      min-height: 400px;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+}
+
+.movie-card-compact {
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  .card-image-container {
+    height: 150px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+  }
+
+  &:hover .card-image-container img {
+    transform: scale(1.08);
+  }
+}
+
+// List Cards
+.list-card {
+  transition: all 0.3s ease;
+  border-top: 4px solid #0d6efd;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15) !important;
+  }
+
+  a {
+    text-decoration: none;
+    color: var(--text-primary);
+
+    &:hover {
+      color: #0d6efd;
+    }
+  }
+}
+
+.list-stats {
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+
+  @media (max-width: 991px) {
+    margin-top: $spacer * 2;
+    position: static !important;
+  }
+}

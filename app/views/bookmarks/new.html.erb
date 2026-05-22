@@ -1,0 +1,44 @@
+<div class="mb-4">
+  <%= link_to "← Back to #{@list.name}", list_path(@list), class: "btn btn-outline-secondary btn-sm" %>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h3 class="card-title mb-4">Add "<%= @movie.title %>" to <%= @list.name %></h3>
+
+        <%= form_with(model: [@list, @bookmark], local: true) do |form| %>
+          <% if @bookmark.errors.any? %>
+            <div class="alert alert-danger" role="alert">
+              <h4 class="alert-heading"><%= pluralize(@bookmark.errors.count, "error") %> prohibited this bookmark from being saved:</h4>
+              <ul class="mb-0">
+                <% @bookmark.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <%= form.hidden_field :movie_id, value: @movie.id %>
+
+          <div class="mb-3">
+            <h5><%= @movie.title %></h5>
+            <p class="text-muted"><%= truncate(@movie.overview, length: 200) %></p>
+          </div>
+
+          <div class="mb-3">
+            <%= form.label :comment, "Your Comment (optional)", class: "form-label" %>
+            <%= form.text_area :comment, class: "form-control", placeholder: "Why do you love this movie?", rows: 4 %>
+            <small class="form-text text-muted">Minimum 6 characters if provided</small>
+          </div>
+
+          <div class="d-grid gap-2">
+            <%= form.submit "Add to List", class: "btn btn-primary" %>
+            <%= link_to "Cancel", list_path(@list), class: "btn btn-secondary" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

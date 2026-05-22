@@ -1,0 +1,61 @@
+<div class="mb-4">
+  <%= link_to "← Back to Movies", movies_path, class: "btn btn-outline-secondary btn-sm" %>
+</div>
+
+<div class="card movie-detail-card shadow-sm">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <div class="card-image-container movie-detail-image">
+        <%= image_tag @movie.poster_url, class: "img-fluid rounded-start h-100 object-fit-cover" %>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h1 class="card-title mb-3"><%= @movie.title %></h1>
+        <p class="card-text lead"><%= @movie.overview %></p>
+        <div class="movie-info mt-4 pt-3 border-top" style="border-color: var(--border-color);">
+          <p class="mb-2">
+            <strong><i class="fas fa-star"></i> Rating:</strong>
+            <span class="badge bg-primary"><%= @movie.rating %>/10</span>
+          </p>
+        </div>
+        <div class="mt-4">
+          <h5>Add to List</h5>
+          <% if @lists.empty? %>
+            <div class="alert alert-info" role="alert">
+              <i class="fas fa-info-circle"></i>
+              <%= link_to "Create a list", new_list_path %> to add this movie to your collection.
+            </div>
+          <% else %>
+            <div class="list-group list-group-flush">
+              <% @lists.each do |list| %>
+                <% bookmark = list.bookmarks.find_by(movie_id: @movie.id) %>
+                <div class="list-group-item" style="background-color: var(--card-bg); border-color: var(--border-color);">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span>
+                      <% if bookmark %>
+                        <i class="fas fa-check-circle text-success"></i>
+                        <%= link_to list.name, list_path(list), class: "text-decoration-none ms-2" %>
+                      <% else %>
+                        <%= link_to list.name, list_path(list), class: "text-decoration-none" %>
+                      <% end %>
+                    </span>
+                    <% if bookmark %>
+                      <%= link_to list_bookmark_path(list, bookmark), data: { turbo_method: :delete, confirm: "Remove #{@movie.title} from #{list.name}?" }, class: "btn btn-sm btn-danger" do %>
+                        <i class="fas fa-trash"></i>
+                      <% end %>
+                    <% else %>
+                      <%= link_to new_list_bookmark_path(list, movie_id: @movie.id), class: "btn btn-sm btn-primary" do %>
+                        <i class="fas fa-plus"></i>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

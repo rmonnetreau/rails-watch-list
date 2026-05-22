@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <%= link_to "← Back to Lists", lists_path, class: "btn btn-outline-secondary btn-sm" %>
+  </div>
+  <h1 class="mb-0"><%= @list.name %></h1>
+  <div class="gap-2">
+    <%= link_to "Edit", edit_list_path(@list), class: "btn btn-outline-secondary btn-sm" %>
+    <%= button_to "Delete", list_path(@list), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger btn-sm" %>
+  </div>
+</div>
+
+<% if @list.movies.empty? %>
+  <div class="alert alert-info text-center py-5" role="alert">
+    <i class="fas fa-inbox fa-3x mb-3 d-block"></i>
+    <h5>No movies in this list yet</h5>
+    <p class="mb-0">
+      <%= link_to "Browse movies", movies_path, class: "btn btn-primary btn-sm" %> to add them to this list.
+    </p>
+  </div>
+<% else %>
+  <div class="row">
+    <div class="col-lg-9">
+      <div class="cards-container">
+        <% @list.movies.each do |movie| %>
+          <div class="card movie-card-compact h-100 shadow-sm">
+            <div class="card-image-container">
+              <%= image_tag movie.poster_url, class: "img-fluid h-100 object-fit-cover" %>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title"><%= link_to movie.title, movie_path(movie), class: "text-decoration-none" %></h5>
+              <p class="card-text small text-muted mb-2">
+                <i class="fas fa-star"></i> <%= movie.rating %>
+              </p>
+              <div class="d-grid gap-1">
+                <%= link_to "View", movie_path(movie), class: "btn btn-sm btn-primary" %>
+                <% bookmark = @list.bookmarks.find_by(movie_id: movie.id) %>
+                <% if bookmark.present? %>
+                  <%= button_to "Remove", list_bookmark_path(@list, bookmark), method: :delete, data: { confirm: "Remove #{movie.title} from this list?" }, class: "btn btn-sm btn-outline-danger" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-lg-3">
+      <div class="card list-stats shadow-sm sticky-top">
+        <div class="card-body">
+          <h5 class="card-title">List Stats</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2">
+              <strong>Total Movies:</strong>
+              <span class="badge bg-primary"><%= @list.movies.count %></span>
+            </li>
+            <li class="mb-2">
+              <strong>Avg Rating:</strong>
+              <span class="badge bg-info">
+                <%= number_with_precision(@list.movies.average(:rating).to_f, precision: 1) %>
+              </span>
+            </li>
+          </ul>
+          <div class="mt-3 pt-3 border-top" style="border-color: var(--border-color);">
+            <%= link_to "Add More Movies", movies_path, class: "btn btn-sm btn-outline-primary w-100" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

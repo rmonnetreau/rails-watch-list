@@ -9,6 +9,10 @@ gem "bootstrap", "~> 5.3"
 gem "autoprefixer-rails"
 gem "font-awesome-sass", "~> 6.1"
 gem "simple_form"
+gem "hotwire-livereload"
+gem 'cloudinary'
+gem "dotenv-rails"
+
 
 # Use postgresql as the database for Active Record
 gem "pg", "~> 1.1"
