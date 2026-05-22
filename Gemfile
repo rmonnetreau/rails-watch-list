@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-ruby "3.3.9"
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.1.3"
 
@@ -10,7 +10,7 @@ gem "autoprefixer-rails"
 gem "font-awesome-sass", "~> 6.1"
 gem "simple_form"
 gem "hotwire-livereload"
-gem 'cloudinary'
+gem "cloudinary"
 gem "dotenv-rails"
 
 
@@ -68,5 +68,5 @@ group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
 end
-gem 'rspec-rails', group: [ :test ]
-gem 'rails-controller-testing', group: [ :test ]
+gem "rspec-rails", group: [ :test ]
+gem "rails-controller-testing", group: [ :test ]
