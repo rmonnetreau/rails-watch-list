@@ -64,6 +64,22 @@
     }
   }
 
+  // Banner
+  .banner {
+    background-color: #343a40;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 2rem;
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    h1 {
+      font-size: 3rem;
+    }
+  }
+
   // Cards
   .card {
     background-color: var(--card-bg);

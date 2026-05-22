@@ -8,27 +8,7 @@
       <div class="card-body">
         <h3 class="card-title mb-4">Edit List</h3>
 
-        <%= form_with(model: @list, local: true) do |form| %>
-          <% if @list.errors.any? %>
-            <div class="alert alert-danger" role="alert">
-              <h4 class="alert-heading"><%= pluralize(@list.errors.count, "error") %> prohibited this list from being saved:</h4>
-              <ul class="mb-0">
-                <% @list.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
-
-          <div class="mb-3">
-            <%= form.label :name, class: "form-label" %>
-            <%= form.text_field :name, class: "form-control" %>
-          </div>
-
-          <div class="d-grid gap-2">
-            <%= form.submit "Update List", class: "btn btn-primary" %>
-          </div>
-        <% end %>
+        <%= render "form", list: @list, submit_label: "Update List" %>
       </div>
     </div>
   </div>
